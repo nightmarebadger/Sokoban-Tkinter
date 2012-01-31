@@ -166,14 +166,19 @@ h = len(p)
 dovoljeni = [' ', 'X']
 premikajoci = ['*', 'R']
 
-width = 800
-height = 600
 
-wid = width // w
-hei = height // h
+max_width = 1000
+max_height = 1000
 
+
+wid = hei = 50
+
+if(wid*w > max_width or hei*h > max_height):
+    wid = hei = min(max_width//w, max_height//h)
 width = wid * w
 height = hei * h
+
+
 
 ply_x, ply_y = findPlayer()
 
