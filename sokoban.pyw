@@ -1,4 +1,7 @@
-from tkinter import *
+try:
+    from tkinter import *
+except:
+    from Tkinter import *
 
 """
     O ... igralec
