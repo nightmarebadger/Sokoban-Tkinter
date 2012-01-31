@@ -1,6 +1,6 @@
 try:
     from tkinter import *
-except:
+except ImportError:
     from Tkinter import *
 
 """
@@ -157,7 +157,15 @@ def keyHandler(event):
     if(event.char == 'r'):
         restart()
 
-level = "level/lvl1.lvl"
+level = "level/"
+
+try:
+    level += raw_input("Input the name (without the .lvl extension) of the level you want to play: ")
+except NameError:
+    level += input("Input the name (without the .lvl extension) of the level you want to play: ")
+
+level += ".lvl"
+
 p = makeLevel(level)
 
 w = len(p[0])
