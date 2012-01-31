@@ -136,7 +136,7 @@ def movement(n):
 
     draw()
     if(jeZmaga()):
-        print("Bravo, zmagu si!")
+        print("Congratulations, you won!")
         root.destroy()
     
     
