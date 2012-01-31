@@ -195,6 +195,8 @@ ply_x, ply_y = findPlayer()
 
 
 root = Tk()
+root.title("Simple Sokoban clone")
+root.focus_force()
 
 canvas = Canvas(root, width=width, height=height)
 canvas.pack()
