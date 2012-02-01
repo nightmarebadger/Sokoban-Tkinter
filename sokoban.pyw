@@ -165,60 +165,66 @@ def keyHandler(event):
     if(event.char == 'r'):
         restart()
 
-"""
-level = "level/"
 
-try:
-    level += raw_input("Input the name (without the .lvl extension) of the level you want to play: ")
-except NameError:
-    level += input("Input the name (without the .lvl extension) of the level you want to play: ")
+def askLevel():
+    top = Tk()
+    top.withdraw()
+    level = askopenfilename(initialdir = "level", filetypes = [('Level files', '.lvl'), ('All files', '.*')], title = "Choose the level you want to play")
+    top.destroy()
 
-level += ".lvl"
-"""
-top = Tk()
-top.withdraw()
-level = askopenfilename(initialdir = "level", filetypes = [('Level files', '.lvl'), ('All files', '.*')], title = "Choose the level you want to play")
-top.destroy()
+    try:
+        return(makeLevel(level))
+    except IOError:
+        top = Tk()
+        top.withdraw()
+        if(askretrycancel("Error!", "There was an error trying to open your level. Do you want to try again?")):           
+            try:
+                return(askLevel())
+            finally:
+                top.destroy()
+        else:
+            top.destroy()
+            return(False)
+    
+p = askLevel()
+if(p):
+    w = len(p[0])
+    h = len(p)
 
-
-p = makeLevel(level)
-
-
-w = len(p[0])
-h = len(p)
-
-dovoljeni = [' ', 'X']
-premikajoci = ['*', 'R']
-
-
-max_width = 1000
-max_height = 1000
-
-
-wid = hei = 50
-
-if(wid*w > max_width or hei*h > max_height):
-    wid = hei = min(max_width//w, max_height//h)
-width = wid * w
-height = hei * h
+    dovoljeni = [' ', 'X']
+    premikajoci = ['*', 'R']
 
 
+    max_width = 1000
+    max_height = 1000
 
-ply_x, ply_y = findPlayer()
 
+    wid = hei = 50
 
+    if(wid*w > max_width or hei*h > max_height):
+        wid = hei = min(max_width//w, max_height//h)
+    width = wid * w
+    height = hei * h
 
 
 
-root = Tk()
-root.title("Simple Sokoban clone")
-root.focus_force()
+    ply_x, ply_y = findPlayer()
 
-canvas = Canvas(root, width=width, height=height)
-canvas.pack()
-draw()
 
-root.bind_all("<Escape>", kill)
-root.bind_all("<Key>", keyHandler)
 
-root.mainloop()
+
+
+    root = Tk()
+    root.title("Simple Sokoban clone")
+    root.focus_force()
+
+    canvas = Canvas(root, width=width, height=height)
+    canvas.pack()
+    draw()
+
+    root.bind_all("<Escape>", kill)
+    root.bind_all("<Key>", keyHandler)
+
+    root.mainloop()
+else:
+    pass
