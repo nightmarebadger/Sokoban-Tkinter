@@ -4,7 +4,7 @@ except ImportError:
     from Tkinter import *
 try:
     from tkinter.filedialog import askopenfilename
-except NameError:
+except ImportError:
     from tkFileDialog import askopenfilename
 
 """
