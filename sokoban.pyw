@@ -187,7 +187,9 @@ def askLevel():
             return(False)
     
 p = askLevel()
-if(p):
+if(not p):
+    pass
+else:
     w = len(p[0])
     h = len(p)
 
@@ -226,5 +228,3 @@ if(p):
     root.bind_all("<Key>", keyHandler)
 
     root.mainloop()
-else:
-    pass
