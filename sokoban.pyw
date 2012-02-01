@@ -6,6 +6,10 @@ try:
     from tkinter.filedialog import askopenfilename
 except ImportError:
     from tkFileDialog import askopenfilename
+try:
+    from tkinter.messagebox import *
+except ImportError:
+    from tkMessageBox import *
 
 """
     O ... igralec
@@ -140,7 +144,7 @@ def movement(n):
 
     draw()
     if(jeZmaga()):
-        print("Congratulations, you won!")
+        showinfo("You won!", "Congratulations, you won!")
         root.destroy()
     
     
