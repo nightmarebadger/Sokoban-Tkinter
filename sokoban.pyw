@@ -2,6 +2,10 @@ try:
     from tkinter import *
 except ImportError:
     from Tkinter import *
+try:
+    from tkinter.filedialog import askopenfilename
+except NameError:
+    from tkFileDialog import askopenfilename
 
 """
     O ... igralec
@@ -157,6 +161,7 @@ def keyHandler(event):
     if(event.char == 'r'):
         restart()
 
+"""
 level = "level/"
 
 try:
@@ -165,8 +170,15 @@ except NameError:
     level += input("Input the name (without the .lvl extension) of the level you want to play: ")
 
 level += ".lvl"
+"""
+top = Tk()
+top.withdraw()
+level = askopenfilename(initialdir = "level", filetypes = [('Level files', '.lvl'), ('All files', '.*')], title = "Choose the level you want to play")
+top.destroy()
+
 
 p = makeLevel(level)
+
 
 w = len(p[0])
 h = len(p)
@@ -201,7 +213,6 @@ root.focus_force()
 canvas = Canvas(root, width=width, height=height)
 canvas.pack()
 draw()
-
 
 root.bind_all("<Escape>", kill)
 root.bind_all("<Key>", keyHandler)
